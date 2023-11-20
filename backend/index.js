@@ -7,6 +7,8 @@ import logger from './middleware/logger.js';
 import connectToDB from './config/db.js';
 import initializeSocket from './socket/socket.js';
 
+import userRoutes from './routes/user.js';
+
 dotenv.config();
 connectToDB();
 
@@ -28,6 +30,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // routes
+app.use(userRoutes);
 
 //error handling middleware
 app.use((err, req, res, next) => {
