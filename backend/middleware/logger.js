@@ -6,7 +6,7 @@ const logger = (req, res, next) => {
   url: ${chalk.green(req.url)} 
   --- method: ${chalk.blue(req.method)} 
   --- status: ${chalk.yellow(res.statusCode)} 
-  --- date: ${chalk.purpure(timestamp)}`);
+  --- date: ${chalk.red(timestamp)}`);
   next();
 };
 
