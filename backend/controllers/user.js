@@ -74,7 +74,9 @@ const user = {
 
           return res.status(201).json({
             success: true,
-            message: `The user at ${email} has successfully logged in`
+            message: `The user at ${email} has successfully logged in`,
+            token,
+            id: userExist._id
           });
         }
       }
@@ -85,7 +87,15 @@ const user = {
       });
     }
   },
-  logout: async (req, res) => {}
+  logout: async (req, res) => {
+    res.clearCookie('token');
+    res.clearCookie('id');
+
+    return res.status(200).json({
+      success: true,
+      message: 'Session successfully closed'
+    });
+  }
 };
 
 export default user;
