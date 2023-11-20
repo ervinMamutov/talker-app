@@ -45,7 +45,46 @@ const user = {
       });
     }
   },
-  login: async (req, res) => {},
+  login: async (req, res) => {
+    try {
+      const { email, password } = req.body;
+      const userExist = await User.findOne({ email });
+      if (userExist) {
+        const isValidPassword = await bcrypt.compare(
+          password,
+          userExist.password
+        );
+
+        if (isValidPassword) {
+          const token = jwt.sign(
+            { userExist: userExist },
+            process.env.TOKEN_ACCESS_SECRET
+          );
+
+          res.cookie('_id', userExist._id, {
+            secure: true,
+            sameSite: false
+          });
+
+          res.cookie('token', token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: false
+          });
+
+          return res.status(201).json({
+            success: true,
+            message: `The user at ${email} has successfully logged in`
+          });
+        }
+      }
+    } catch (err) {
+      return res.status(500).json({
+        success: false,
+        err: err.message
+      });
+    }
+  },
   logout: async (req, res) => {}
 };
 
