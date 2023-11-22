@@ -8,6 +8,7 @@ import connectToDB from './config/db.js';
 import initializeSocket from './socket/socket.js';
 
 import userRoutes from './routes/user.js';
+import chatRoutes from './routes/chat.js';
 
 dotenv.config();
 connectToDB();
@@ -31,6 +32,7 @@ app.use(cookieParser());
 
 // routes
 app.use(userRoutes);
+app.use(chatRoutes);
 
 //error handling middleware
 app.use((err, req, res, next) => {
