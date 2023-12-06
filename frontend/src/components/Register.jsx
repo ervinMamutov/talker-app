@@ -62,11 +62,11 @@ const Register = () => {
       <FormControl>
         <p>{error}</p>
         {/* name */}
-        <FormLabel>Name:</FormLabel>
+        <FormLabel>nickName:</FormLabel>
         <Input
           id="name"
           type="text"
-          placeholder="Enter Your Name"
+          placeholder="Enter Your nickName"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />

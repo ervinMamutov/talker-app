@@ -9,7 +9,7 @@ import hashPassword from '../utilities/hashPassword.js';
 const user = {
   register: async (req, res) => {
     try {
-      const { email, password, rePassword } = req.body;
+      const { name, image, email, password, rePassword } = req.body;
       const userExist = await User.findOne({ email });
       if (userExist) {
         return res.status(400).json({
@@ -18,6 +18,7 @@ const user = {
         });
       } else {
         if (
+          !name ||
           !validateEmail(email) ||
           !validatePassword(password) ||
           !matchPasswords(password, rePassword)
@@ -29,8 +30,10 @@ const user = {
         } else {
           const hashedPassword = hashPassword(password);
           const user = User.create({
+            name,
             email,
-            password: hashedPassword
+            password: hashedPassword,
+            image
           });
           return res.status(200).json({
             success: true,
